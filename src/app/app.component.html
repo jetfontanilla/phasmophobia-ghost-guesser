@@ -1,3 +1,23 @@
-<div class="d-flex">
-Hello World
+<h1 class="text-3xl text-center">Phasmophobia Ghost Guesser</h1>
+<div class="m-3 grid grid-cols-2 md:grid-cols-3 gap-3">
+  <div class="...">
+    <h2 class="text-2xl">Evidence</h2>
+    <div *ngFor="let evidence of getEvidence()">
+      <span class="inline-block w-52">{{evidence.name}}</span>
+      <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
+            [class.bg-gray-500]="isEvidenceUndefined(evidence.id)"
+            [class.bg-green-500]="isEvidencePresent(evidence.id)"
+      >Yes</span>
+      <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
+            [class.bg-gray-500]="isEvidenceUndefined(evidence.id)"
+            [class.bg-red-500]="isEvidenceAbsent(evidence.id)"
+      >No</span>
+    </div>
+  </div>
+  <div class="...">
+    <h2 class="text-2xl">Behavior</h2>
+  </div>
+  <div class="col-span-2 md:col-span-1">
+    <h2 class="text-2xl">Your Ghost is:</h2>
+  </div>
 </div>
