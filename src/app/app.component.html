@@ -1,10 +1,11 @@
 <h1 class="text-3xl text-center">Phasmophobia Ghost Guesser</h1>
 <div class="m-3 grid grid-cols-1 md:grid-cols-3 gap-3">
-  <div class="evidence">
-    <h2 class="text-2xl">Evidence</h2>
-    <div *ngFor="let evidence of getEvidence()">
+
+  <div class="m-2 evidence">
+    <h2 class="text-2xl my-4">Evidence</h2>
+    <div *ngFor="let evidence of getEvidence()" class="my-2">
       <span class="inline-block w-52">{{evidence.name}}</span>
-      <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
+      <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer mr-2"
             [class.bg-gray-500]="isEvidenceUndefined(evidence.id) || isEvidenceAbsent(evidence.id)"
             [class.bg-green-500]="isEvidencePresent(evidence.id)"
             (click)="toggleEvidencePresence(evidence.id)"
@@ -16,10 +17,41 @@
       >No</span>
     </div>
   </div>
-  <div class="behavior md:col-span-2">
-    <h2 class="text-2xl">Behavior</h2>
+
+  <div class="m-2 behavior md:col-span-2">
+    <h2 class="text-2xl my-4">Behavior</h2>
+    <div class="grid grid-cols-2 gap-3">
+
+      <div class="behavior-giveaway">
+        <div *ngFor="let behavior of getGhostBehaviorGiveaway()" class="flex items-center my-2">
+          <span class="flex-none mr-2">
+            <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
+                [class.bg-gray-500]="!isSureCandidate(behavior.id)"
+                [class.bg-green-500]="isSureCandidate(behavior.id)"
+                (click)="toggleSureCandidate(behavior.id)"
+            >Yes</span>
+          </span>
+          <span class="flex-initial">{{behavior.value}}</span>
+        </div>
+      </div>
+
+      <div class="behavior-likely">
+        <div *ngFor="let commonBehavior of getGhostBehaviorLikely(); index as behaviorIndex" class="flex items-center my-2">
+          <span class="flex-none mr-2">
+            <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
+                  [class.bg-gray-500]="!isCommonBehaviorSelected(behaviorIndex)"
+                  [class.bg-green-500]="isCommonBehaviorSelected(behaviorIndex)"
+                  (click)="toggleCommonBehavior(behaviorIndex)"
+            >Yes</span>
+          </span>
+          <span class="flex-initial">{{commonBehavior.value}}</span>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <div class="ghost-result md:col-span-3">
+
+  <div class="m-2 ghost-result md:col-span-3">
     <ng-template [ngIf]="getPossibleGhosts().length">
       <h2 class="text-2xl">Your Ghost is:</h2>
       <ul>

@@ -1,5 +1,16 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { EVIDENCE, Evidence, GHOST, Ghost, GhostEntity, EvidenceEntity } from './ghost-properties';
+import {
+  BehaviorCommonEntity,
+  BehaviorEntity,
+  EVIDENCE,
+  Evidence,
+  EvidenceEntity,
+  GHOST,
+  Ghost,
+  GHOST_BEHAVIOR_GIVEAWAY,
+  GHOST_BEHAVIOR_LIKELY,
+  GhostEntity
+} from './ghost-properties';
 import { difference, filter, isUndefined, map, reduce } from 'lodash-es';
 
 
@@ -11,21 +22,31 @@ import { difference, filter, isUndefined, map, reduce } from 'lodash-es';
 })
 export class AppComponent {
   private evidenceMatrix: (boolean | undefined)[] = [undefined, undefined, undefined, undefined, undefined, undefined];
+  private selectedCommonBehavior: number[] = [];
   private likelyCandidates: Ghost[] = [];
-  private sureCandidates: Ghost[] = [];
+  private sureCandidate?: Ghost;
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   reset(): void {
     this.evidenceMatrix = [undefined, undefined, undefined, undefined, undefined, undefined];
+    this.selectedCommonBehavior = [];
     this.likelyCandidates = [];
-    this.sureCandidates = [];
+    this.sureCandidate = undefined;
     this.changeDetectorRef.markForCheck();
   }
 
   getEvidence(): EvidenceEntity[] {
     return EVIDENCE;
+  }
+
+  getGhostBehaviorGiveaway(): BehaviorEntity[] {
+    return GHOST_BEHAVIOR_GIVEAWAY;
+  }
+
+  getGhostBehaviorLikely(): BehaviorCommonEntity[] {
+    return GHOST_BEHAVIOR_LIKELY;
   }
 
   isEvidenceUndefined(evidenceId: Evidence): boolean {
@@ -83,6 +104,10 @@ export class AppComponent {
   getPossibleGhosts(): GhostEntity[] {
     const [evidencePresent, evidenceAbsent] = this.getCurrentEvidence();
 
+    if (!isUndefined(this.sureCandidate)) {
+      return [GHOST[this.sureCandidate]];
+    }
+
     return filter(GHOST, (ghost) => {
       return difference(evidencePresent, ghost.evidence).length === 0
         && difference(evidenceAbsent, ghost.evidence).length === evidenceAbsent.length;
@@ -95,4 +120,31 @@ export class AppComponent {
       return EVIDENCE[evidenceId].name;
     });
   }
+
+  isSureCandidate(ghostId: Ghost): boolean {
+    return this.sureCandidate === ghostId;
+  }
+
+  toggleSureCandidate(ghostId: Ghost): void {
+    this.changeDetectorRef.markForCheck();
+    if (this.isSureCandidate(ghostId)) {
+      this.sureCandidate = undefined;
+    } else {
+      this.sureCandidate = ghostId;
+    }
+  }
+
+  isCommonBehaviorSelected(behaviorIndex: number): boolean {
+    return this.selectedCommonBehavior.includes(behaviorIndex);
+  }
+
+  toggleCommonBehavior(behaviorIndex: number): void {
+    this.changeDetectorRef.markForCheck();
+    if (this.isCommonBehaviorSelected(behaviorIndex)) {
+      this.selectedCommonBehavior = this.selectedCommonBehavior.filter(index => index !== behaviorIndex);
+      return;
+    }
+    this.selectedCommonBehavior.push(behaviorIndex);
+  }
+
 }
