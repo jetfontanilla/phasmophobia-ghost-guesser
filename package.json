@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:prod": "NODE_ENV=production ng build --prod",
-    "build:github": "NODE_ENV=production ng build --prod --output-path docs --base-href /phasmophobia-ghost-guesser/"
+    "build:prod": "SET NODE_ENV=production && ng build --prod",
+    "build:github": "SET NODE_ENV=production && ng build --prod --output-path docs --base-href /phasmophobia-ghost-guesser/"
   },
   "private": true,
   "dependencies": {
