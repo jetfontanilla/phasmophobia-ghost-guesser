@@ -1,4 +1,4 @@
-<div class="m-3 flex items-center">
+<div class="p-5 mb-10 flex items-center bg-blue-300">
   <a href="https://github.com/jetfontanilla/phasmophobia-ghost-guesser">
     <i class="fab fa-github text-3xl m-3" title="View Project"></i>
   </a>
@@ -6,7 +6,7 @@
   <span class="inline-block rounded-lg px-4 py-2 text-l font-semibold text-white text-center cursor-pointer mr-2 hover:bg-opacity-75 bg-blue-500 ml-10 ring-2"
         (click)="reset()"
   >Reset</span>
-  <span class="inline-block rounded-lg px-4 py-2 text-l font-semibold text-white text-center cursor-pointer mr-2 hover:bg-opacity-75 ml-auto ring-2 ring-green-100"
+  <span class="inline-block rounded-lg px-4 py-2 text-l font-semibold text-white text-center cursor-pointer mr-2 hover:bg-opacity-75 ml-auto ring-2 ring-gray-100"
         [class.bg-gray-400]="!isNoEvidenceMode()"
         [class.bg-green-500]="isNoEvidenceMode()"
         (click)="toggleNoEvidenceMode()"
@@ -37,35 +37,33 @@
     </div>
   </div>
 
-  <div class="m-2 ghost-result flex flex-auto justify-center">
-    <div class="ghost-list inline-block bg-purple-200 rounded-xl px-20 py-5">
-      <ng-template [ngIf]="getPossibleGhosts().length">
-        <h2 class="text-xl my-4 inline-block" *ngIf="getPossibleGhosts().length > 1">Possible Ghosts:</h2>
-        <h2 class="text-xl my-4 inline-block" *ngIf="getPossibleGhosts().length === 1">Your Ghost is a:</h2>
-        <div class="grid grid-cols-2 grid-rows-6 grid-flow-col gap-2">
-          <span *ngFor="let ghost of getPossibleGhosts()">
-          {{ghost.name}}
-            <span *ngIf="getRemainingEvidence(ghost.evidence).length">
-            (
-            <span *ngFor="let remainingEvidence of getRemainingEvidence(ghost.evidence)">
-              <i class="m-1" [ngClass]="remainingEvidence.iconClass" [title]="remainingEvidence.name"></i>
-            </span>
-            )
+  <div class="mx-20 ghost-result flex-auto bg-white rounded-xl px-20 py-5">
+    <ng-template [ngIf]="getPossibleGhosts().length">
+      <h2 class="text-xl my-4 inline-block" *ngIf="getPossibleGhosts().length > 1">Possible Ghosts:</h2>
+      <h2 class="text-xl my-4 inline-block" *ngIf="getPossibleGhosts().length === 1">Your Ghost is a:</h2>
+      <div class="grid grid-cols-2 grid-rows-6 grid-flow-col gap-2">
+        <span *ngFor="let ghost of getPossibleGhosts()">
+        {{ghost.name}}
+          <span *ngIf="getRemainingEvidence(ghost.evidence).length">
+          (
+          <span *ngFor="let remainingEvidence of getRemainingEvidence(ghost.evidence)">
+            <i class="m-1" [ngClass]="remainingEvidence.iconClass" [title]="remainingEvidence.name"></i>
           </span>
+          )
         </span>
-        </div>
-      </ng-template>
+      </span>
+      </div>
+    </ng-template>
 
-      <ng-template [ngIf]="!getPossibleGhosts().length">
-        <h2 class="text-xl my-4">No Possible Ghost</h2>
-        <div>Please check your evidence again</div>
-        <ul>
-          <li>Poltergeist can give fake EMF5 graph spikes when throwing multiple objects at once</li>
-          <li>Ghost events can also trigger a fake EMF5 spike</li>
-          <li>Are you sure it's a Ghost orb?</li>
-        </ul>
-      </ng-template>
-    </div>
+    <ng-template [ngIf]="!getPossibleGhosts().length">
+      <h2 class="text-xl my-4">No Possible Ghost</h2>
+      <div>Please check your evidence again</div>
+      <ul>
+        <li>Poltergeist can give fake EMF5 graph spikes when throwing multiple objects at once</li>
+        <li>Ghost events can also trigger a fake EMF5 spike</li>
+        <li>Are you sure it's a Ghost orb?</li>
+      </ul>
+    </ng-template>
   </div>
 
   <div class="m-2 behavior flex-initial">
