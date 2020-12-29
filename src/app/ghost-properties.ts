@@ -72,8 +72,8 @@ export const EVIDENCE: EvidenceEntity[] = [
 export const GHOST_BEHAVIOR_GIVEAWAY: BehaviorEntity[] = [
   {id: Ghost.Phantom, value: 'Disappears after taking a Photo. Ghost Photo in Journal is invisible'},
   {id: Ghost.Banshee, value: 'Hunts at > 65% average sanity, only targets one person during hunts'},
-  {id: Ghost.Mare, value: 'Hunts at <= 60% sanity when lights are off in its room. Can only hunt at <= 40% average sanity when lights are on it its room'},
-  {id: Ghost.Demon, value: 'Hunts at <= 65% sanity'},
+  {id: Ghost.Mare, value: 'Hunts at <= 60% average sanity when lights are off in its room. Can only hunt at <= 40% average sanity when lights are on it its room'},
+  {id: Ghost.Demon, value: 'Hunts at <= 65% average sanity'},
   {id: Ghost.Wraith, value: 'Does not leave UV footprints after stepping on salt'},
   {id: Ghost.Jinn, value: 'When break is turned on, during hunts will move at 2x speed, but will slow down within 4 meters of a player'},
   {id: Ghost.Shade, value: 'Unable to hunt when there is more than 1 person in its room'},

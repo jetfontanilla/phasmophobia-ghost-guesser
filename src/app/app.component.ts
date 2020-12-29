@@ -25,6 +25,7 @@ export class AppComponent {
   private selectedCommonBehavior: number[] = [];
   private likelyCandidates: Ghost[] = [];
   private sureCandidate?: Ghost;
+  private noEvidence = false;
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
@@ -34,6 +35,15 @@ export class AppComponent {
     this.selectedCommonBehavior = [];
     this.likelyCandidates = [];
     this.sureCandidate = undefined;
+    this.changeDetectorRef.markForCheck();
+  }
+
+  isNoEvidenceMode(): boolean {
+    return this.noEvidence;
+  }
+
+  toggleNoEvidenceMode(): void {
+    this.noEvidence = !this.noEvidence;
     this.changeDetectorRef.markForCheck();
   }
 

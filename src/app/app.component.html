@@ -1,51 +1,71 @@
-<h1 class="text-2xl text-center">Phasmophobia Ghost Guesser</h1>
+<div class="m-3 flex items-center">
+  <a href="https://github.com/jetfontanilla/phasmophobia-ghost-guesser">
+    <i class="fab fa-github text-3xl m-3" title="View Project"></i>
+  </a>
+  <h1 class="flex-initial text-2xl inline-block">Phasmophobia Ghost Guesser</h1>
+  <span class="inline-block rounded-lg px-4 py-2 text-l font-semibold text-white text-center cursor-pointer mr-2 hover:bg-opacity-75 bg-blue-500 ml-10 ring-2"
+        (click)="reset()"
+  >Reset</span>
+  <span class="inline-block rounded-lg px-4 py-2 text-l font-semibold text-white text-center cursor-pointer mr-2 hover:bg-opacity-75 ml-auto ring-2 ring-green-100"
+        [class.bg-gray-400]="!isNoEvidenceMode()"
+        [class.bg-green-500]="isNoEvidenceMode()"
+        (click)="toggleNoEvidenceMode()"
+  >No Evidence Mode</span>
+</div>
+
 <div class="m-3 flex flex-wrap">
 
-  <div class="m-2 evidence flex-1">
+  <div class="m-2 evidence">
     <h2 class="text-xl my-4">Evidence</h2>
     <div *ngFor="let evidence of getEvidence()" class="my-2">
-      <span class="inline-block w-52">
-        <i class="m-1" [ngClass]="evidence.iconClass" [title]="evidence.name"></i>
-        {{evidence.name}}
-      </span>
-      <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer mr-2"
-            [class.bg-gray-500]="isEvidenceUndefined(evidence.id) || isEvidenceAbsent(evidence.id)"
-            [class.bg-green-500]="isEvidencePresent(evidence.id)"
-            (click)="toggleEvidencePresence(evidence.id)"
-      >Yes</span>
-      <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
-            [class.bg-gray-500]="isEvidenceUndefined(evidence.id) || isEvidencePresent(evidence.id)"
-            [class.bg-red-500]="isEvidenceAbsent(evidence.id)"
-            (click)="toggleEvidenceAbsence(evidence.id)"
-      >No</span>
+      <ng-template [ngIf]="!isNoEvidenceMode() || evidence.noEvidence">
+        <span class="inline-block w-52">
+          <i class="m-1 w-5 text-center" [ngClass]="evidence.iconClass" [title]="evidence.name"></i>
+          {{evidence.name}}
+        </span>
+        <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer mr-2 hover:bg-opacity-75"
+              [class.bg-gray-400]="isEvidenceUndefined(evidence.id) || isEvidenceAbsent(evidence.id)"
+              [class.bg-green-500]="isEvidencePresent(evidence.id)"
+              (click)="toggleEvidencePresence(evidence.id)"
+        >Yes</span>
+        <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer hover:bg-opacity-75"
+              [class.bg-gray-400]="isEvidenceUndefined(evidence.id) || isEvidencePresent(evidence.id)"
+              [class.bg-red-500]="isEvidenceAbsent(evidence.id)"
+              (click)="toggleEvidenceAbsence(evidence.id)"
+        >No</span>
+      </ng-template>
     </div>
   </div>
 
-  <div class="m-2 ghost-result flex-1">
-    <ng-template [ngIf]="getPossibleGhosts().length">
-      <h2 class="text-xl">Your Ghost is:</h2>
-      <ul>
-        <li *ngFor="let ghost of getPossibleGhosts()">
+  <div class="m-2 ghost-result flex flex-auto justify-center">
+    <div class="ghost-list inline-block bg-purple-200 rounded-xl px-20 py-5">
+      <ng-template [ngIf]="getPossibleGhosts().length">
+        <h2 class="text-xl my-4 inline-block" *ngIf="getPossibleGhosts().length > 1">Possible Ghosts:</h2>
+        <h2 class="text-xl my-4 inline-block" *ngIf="getPossibleGhosts().length === 1">Your Ghost is a:</h2>
+        <div class="grid grid-cols-2 grid-rows-6 grid-flow-col gap-2">
+          <span *ngFor="let ghost of getPossibleGhosts()">
           {{ghost.name}}
-          <span *ngIf="getRemainingEvidence(ghost.evidence).length">
+            <span *ngIf="getRemainingEvidence(ghost.evidence).length">
             (
             <span *ngFor="let remainingEvidence of getRemainingEvidence(ghost.evidence)">
               <i class="m-1" [ngClass]="remainingEvidence.iconClass" [title]="remainingEvidence.name"></i>
             </span>
             )
           </span>
-        </li>
-      </ul>
-    </ng-template>
-    <ng-template [ngIf]="!getPossibleGhosts().length">
-      <h2 class="text-xl">No Possible Ghost</h2>
-      <div>Please check your evidence again</div>
-      <ul>
-        <li>Poltergeist can give fake EMF5 spikes when throwing multiple objects</li>
-        <li>Ghost events can also trigger a fake EMF5 spike</li>
-        <li>Are you sure it's a Ghost orb?</li>
-      </ul>
-    </ng-template>
+        </span>
+        </div>
+      </ng-template>
+
+      <ng-template [ngIf]="!getPossibleGhosts().length">
+        <h2 class="text-xl my-4">No Possible Ghost</h2>
+        <div>Please check your evidence again</div>
+        <ul>
+          <li>Poltergeist can give fake EMF5 graph spikes when throwing multiple objects at once</li>
+          <li>Ghost events can also trigger a fake EMF5 spike</li>
+          <li>Are you sure it's a Ghost orb?</li>
+        </ul>
+      </ng-template>
+    </div>
   </div>
 
   <div class="m-2 behavior flex-initial">
@@ -55,8 +75,8 @@
       <div class="behavior-giveaway">
         <div *ngFor="let behavior of getGhostBehaviorGiveaway()" class="flex items-center my-2">
           <span class="flex-none mr-2">
-            <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
-                [class.bg-gray-500]="!isSureCandidate(behavior.id)"
+            <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer hover:bg-opacity-75"
+                [class.bg-gray-400]="!isSureCandidate(behavior.id)"
                 [class.bg-green-500]="isSureCandidate(behavior.id)"
                 (click)="toggleSureCandidate(behavior.id)"
             >Yes</span>
@@ -68,8 +88,8 @@
       <div class="behavior-likely">
         <div *ngFor="let commonBehavior of getGhostBehaviorLikely(); index as behaviorIndex" class="flex items-center my-2">
           <span class="flex-none mr-2">
-            <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
-                  [class.bg-gray-500]="!isCommonBehaviorSelected(behaviorIndex)"
+            <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer hover:bg-opacity-75"
+                  [class.bg-gray-400]="!isCommonBehaviorSelected(behaviorIndex)"
                   [class.bg-green-500]="isCommonBehaviorSelected(behaviorIndex)"
                   (click)="toggleCommonBehavior(behaviorIndex)"
             >Yes</span>
