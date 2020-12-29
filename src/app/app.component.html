@@ -45,12 +45,13 @@
         <span *ngFor="let ghost of getPossibleGhosts()">
         {{ghost.name}}
           <span *ngIf="getRemainingEvidence(ghost.evidence).length">
-          (
-          <span *ngFor="let remainingEvidence of getRemainingEvidence(ghost.evidence)">
-            <i class="m-1" [ngClass]="remainingEvidence.iconClass" [title]="remainingEvidence.name"></i>
+            (
+            <span *ngFor="let remainingEvidence of getRemainingEvidence(ghost.evidence)">
+              <i class="m-1" [ngClass]="remainingEvidence.iconClass" [title]="remainingEvidence.name"></i>
+            </span>
+            )
           </span>
-          )
-        </span>
+          <span *ngIf="isLikelyCandidate(ghost.id)">- Likely</span>
       </span>
       </div>
     </ng-template>

@@ -152,9 +152,22 @@ export class AppComponent {
     this.changeDetectorRef.markForCheck();
     if (this.isCommonBehaviorSelected(behaviorIndex)) {
       this.selectedCommonBehavior = this.selectedCommonBehavior.filter(index => index !== behaviorIndex);
-      return;
+    } else {
+      this.selectedCommonBehavior.push(behaviorIndex);
     }
-    this.selectedCommonBehavior.push(behaviorIndex);
+
+    this.generateLikelyCandidates();
+  }
+
+  private generateLikelyCandidates(): void {
+    this.likelyCandidates = reduce(this.selectedCommonBehavior, (acc: Ghost[], behaviorIndex) => {
+      acc.concat(GHOST_BEHAVIOR_LIKELY[behaviorIndex].ghostIds);
+      return [...acc, ...GHOST_BEHAVIOR_LIKELY[behaviorIndex].ghostIds];
+    }, []);
+  }
+
+  isLikelyCandidate(ghostId: Ghost): boolean {
+    return this.likelyCandidates.includes(ghostId);
   }
 
 }
