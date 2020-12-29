@@ -5,12 +5,14 @@
     <div *ngFor="let evidence of getEvidence()">
       <span class="inline-block w-52">{{evidence.name}}</span>
       <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
-            [class.bg-gray-500]="isEvidenceUndefined(evidence.id)"
+            [class.bg-gray-500]="isEvidenceUndefined(evidence.id) || isEvidenceAbsent(evidence.id)"
             [class.bg-green-500]="isEvidencePresent(evidence.id)"
+            (click)="toggleEvidencePresence(evidence.id)"
       >Yes</span>
       <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer"
-            [class.bg-gray-500]="isEvidenceUndefined(evidence.id)"
+            [class.bg-gray-500]="isEvidenceUndefined(evidence.id) || isEvidencePresent(evidence.id)"
             [class.bg-red-500]="isEvidenceAbsent(evidence.id)"
+            (click)="toggleEvidenceAbsence(evidence.id)"
       >No</span>
     </div>
   </div>
@@ -18,6 +20,20 @@
     <h2 class="text-2xl">Behavior</h2>
   </div>
   <div class="col-span-2 md:col-span-1">
-    <h2 class="text-2xl">Your Ghost is:</h2>
+    <ng-template [ngIf]="getPossibleGhosts().length">
+      <h2 class="text-2xl">Your Ghost is:</h2>
+      <ul>
+        <li *ngFor="let ghost of getPossibleGhosts()">{{ghost.name}}</li>
+      </ul>
+    </ng-template>
+    <ng-template [ngIf]="!getPossibleGhosts().length">
+      <h2 class="text-2xl">No Possible Ghost</h2>
+      <div>Please check your evidence again</div>
+      <ul>
+        <li>Poltergeist can give fake EMF5 spikes when throwing multiple objects</li>
+        <li>Ghost events can also trigger a fake EMF5 spike</li>
+        <li>Are you sure it's a Ghost orb?</li>
+      </ul>
+    </ng-template>
   </div>
 </div>

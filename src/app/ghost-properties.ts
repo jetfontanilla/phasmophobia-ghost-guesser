@@ -27,19 +27,23 @@ export interface NameDictionary {
   name: string;
 }
 
-export const GHOST: NameDictionary[] = [
-  {id: Ghost.Phantom, name: 'Phantom'},
-  {id: Ghost.Banshee, name: 'Banshee'},
-  {id: Ghost.Mare, name: 'Mare'},
-  {id: Ghost.Yurei, name: 'Yurei'},
-  {id: Ghost.Demon, name: 'Demon'},
-  {id: Ghost.Wraith, name: 'Wraith'},
-  {id: Ghost.Jinn, name: 'Jinn'},
-  {id: Ghost.Shade, name: 'Shade'},
-  {id: Ghost.Oni, name: 'Oni'},
-  {id: Ghost.Revenant, name: 'Revenant'},
-  {id: Ghost.Poltergeist, name: 'Poltergeist'},
-  {id: Ghost.Spirit, name: 'Spirit'},
+export interface GhostDictionary extends NameDictionary {
+  evidence: Evidence[];
+}
+
+export const GHOST: GhostDictionary[] = [
+  {id: Ghost.Phantom, name: 'Phantom', evidence: [Evidence.Emf, Evidence.Freezing, Evidence.GhostOrbs]},
+  {id: Ghost.Banshee, name: 'Banshee', evidence: [Evidence.Emf, Evidence.Freezing, Evidence.Fingerprints]},
+  {id: Ghost.Mare, name: 'Mare', evidence: [Evidence.Freezing, Evidence.GhostOrbs, Evidence.SpiritBox]},
+  {id: Ghost.Yurei, name: 'Yurei', evidence: [Evidence.Freezing, Evidence.GhostOrbs, Evidence.GhostWriting]},
+  {id: Ghost.Demon, name: 'Demon', evidence: [Evidence.Freezing, Evidence.SpiritBox, Evidence.GhostWriting]},
+  {id: Ghost.Wraith, name: 'Wraith', evidence: [Evidence.Freezing, Evidence.SpiritBox, Evidence.Fingerprints]},
+  {id: Ghost.Jinn, name: 'Jinn', evidence: [Evidence.Emf, Evidence.SpiritBox, Evidence.GhostOrbs]},
+  {id: Ghost.Shade, name: 'Shade', evidence: [Evidence.Emf, Evidence.GhostOrbs, Evidence.GhostWriting]},
+  {id: Ghost.Oni, name: 'Oni', evidence: [Evidence.Emf, Evidence.SpiritBox, Evidence.GhostWriting]},
+  {id: Ghost.Revenant, name: 'Revenant', evidence: [Evidence.Emf, Evidence.Fingerprints, Evidence.GhostWriting]},
+  {id: Ghost.Poltergeist, name: 'Poltergeist', evidence: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostOrbs]},
+  {id: Ghost.Spirit, name: 'Spirit', evidence: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostWriting]},
 ];
 
 export const EVIDENCE: NameDictionary[] = [
@@ -50,18 +54,3 @@ export const EVIDENCE: NameDictionary[] = [
   {id: Evidence.GhostWriting, name: 'Ghost Writing'},
   {id: Evidence.Fingerprints, name: 'Fingerprints'}
 ];
-
-export const GHOST_EVIDENCE = {
-  [Ghost.Phantom]: [Evidence.Emf, Evidence.Freezing, Evidence.GhostOrbs],
-  [Ghost.Banshee]: [Evidence.Emf, Evidence.Freezing, Evidence.Fingerprints],
-  [Ghost.Mare]: [Evidence.Freezing, Evidence.GhostOrbs, Evidence.SpiritBox],
-  [Ghost.Yurei]: [Evidence.Freezing, Evidence.GhostOrbs, Evidence.GhostWriting],
-  [Ghost.Demon]: [Evidence.Freezing, Evidence.SpiritBox, Evidence.GhostWriting],
-  [Ghost.Wraith]: [Evidence.Freezing, Evidence.SpiritBox, Evidence.Fingerprints],
-  [Ghost.Jinn]: [Evidence.Emf, Evidence.SpiritBox, Evidence.GhostOrbs],
-  [Ghost.Shade]: [Evidence.Emf, Evidence.GhostOrbs, Evidence.GhostWriting],
-  [Ghost.Oni]: [Evidence.Emf, Evidence.SpiritBox, Evidence.GhostWriting],
-  [Ghost.Revenant]: [Evidence.Emf, Evidence.Fingerprints, Evidence.GhostWriting],
-  [Ghost.Poltergeist]: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostOrbs],
-  [Ghost.Spirit]: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostWriting]
-};
