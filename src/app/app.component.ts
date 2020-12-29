@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { EVIDENCE, Evidence, GHOST, Ghost, GhostDictionary, NameDictionary } from './ghost-properties';
-import { difference, filter, isUndefined, reduce } from 'lodash-es';
+import { EVIDENCE, Evidence, GHOST, Ghost, GhostEntity, EvidenceEntity } from './ghost-properties';
+import { difference, filter, isUndefined, map, reduce } from 'lodash-es';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { difference, filter, isUndefined, reduce } from 'lodash-es';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  private evidence: (boolean | undefined)[] = [undefined, undefined, undefined, undefined, undefined, undefined];
+  private evidenceMatrix: (boolean | undefined)[] = [undefined, undefined, undefined, undefined, undefined, undefined];
   private likelyCandidates: Ghost[] = [];
   private sureCandidates: Ghost[] = [];
 
@@ -18,57 +18,57 @@ export class AppComponent {
   }
 
   reset(): void {
-    this.evidence = [undefined, undefined, undefined, undefined, undefined, undefined];
+    this.evidenceMatrix = [undefined, undefined, undefined, undefined, undefined, undefined];
     this.likelyCandidates = [];
     this.sureCandidates = [];
     this.changeDetectorRef.markForCheck();
   }
 
-  getEvidence(): NameDictionary[] {
+  getEvidence(): EvidenceEntity[] {
     return EVIDENCE;
   }
 
-  isEvidenceUndefined(evidence: Evidence): boolean {
-    const currentEvidence = this.evidence[evidence];
+  isEvidenceUndefined(evidenceId: Evidence): boolean {
+    const currentEvidence = this.evidenceMatrix[evidenceId];
     return isUndefined(currentEvidence);
   }
 
-  isEvidencePresent(evidence: Evidence): boolean {
-    const currentEvidence = this.evidence[evidence];
+  isEvidencePresent(evidenceId: Evidence): boolean {
+    const currentEvidence = this.evidenceMatrix[evidenceId];
     if (isUndefined(currentEvidence)) {
       return false;
     }
     return currentEvidence;
   }
 
-  isEvidenceAbsent(evidence: Evidence): boolean {
-    const currentEvidence = this.evidence[evidence];
+  isEvidenceAbsent(evidenceId: Evidence): boolean {
+    const currentEvidence = this.evidenceMatrix[evidenceId];
     if (isUndefined(currentEvidence)) {
       return false;
     }
     return !currentEvidence;
   }
 
-  toggleEvidencePresence(evidence: Evidence): void {
+  toggleEvidencePresence(evidenceId: Evidence): void {
     this.changeDetectorRef.markForCheck();
-    if (this.isEvidenceUndefined(evidence) || this.isEvidenceAbsent(evidence)) {
-      this.evidence[evidence] = true;
+    if (this.isEvidenceUndefined(evidenceId) || this.isEvidenceAbsent(evidenceId)) {
+      this.evidenceMatrix[evidenceId] = true;
       return;
     }
-    this.evidence[evidence] = undefined;
+    this.evidenceMatrix[evidenceId] = undefined;
   }
 
-  toggleEvidenceAbsence(evidence: Evidence): void {
+  toggleEvidenceAbsence(evidenceId: Evidence): void {
     this.changeDetectorRef.markForCheck();
-    if (this.isEvidenceUndefined(evidence) || this.isEvidencePresent(evidence)) {
-      this.evidence[evidence] = false;
+    if (this.isEvidenceUndefined(evidenceId) || this.isEvidencePresent(evidenceId)) {
+      this.evidenceMatrix[evidenceId] = false;
       return;
     }
-    this.evidence[evidence] = undefined;
+    this.evidenceMatrix[evidenceId] = undefined;
   }
 
-  getPossibleGhosts(): GhostDictionary[] {
-    const [evidencePresent, evidenceAbsent] = reduce(this.evidence, ([present, absent]: [Evidence[], Evidence[]], isPresent, evidence) => {
+  private getCurrentEvidence(): [Evidence[], Evidence[]] {
+    return reduce(this.evidenceMatrix, ([present, absent]: [Evidence[], Evidence[]], isPresent, evidence) => {
       if (!isUndefined(isPresent)) {
         if (isPresent) {
           present.push(evidence);
@@ -78,10 +78,21 @@ export class AppComponent {
       }
       return [present, absent];
     }, [[], []]);
+  }
+
+  getPossibleGhosts(): GhostEntity[] {
+    const [evidencePresent, evidenceAbsent] = this.getCurrentEvidence();
 
     return filter(GHOST, (ghost) => {
       return difference(evidencePresent, ghost.evidence).length === 0
         && difference(evidenceAbsent, ghost.evidence).length === evidenceAbsent.length;
+    });
+  }
+
+  getRemainingEvidence(evidences: Evidence[]): string[] {
+    const [evidencePresent, evidenceAbsent] = this.getCurrentEvidence();
+    return map(difference(evidences, [...evidencePresent, ...evidenceAbsent]), (evidenceId) => {
+      return EVIDENCE[evidenceId].name;
     });
   }
 }

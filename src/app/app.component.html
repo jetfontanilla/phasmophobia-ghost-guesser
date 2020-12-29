@@ -1,6 +1,6 @@
 <h1 class="text-3xl text-center">Phasmophobia Ghost Guesser</h1>
-<div class="m-3 grid grid-cols-2 md:grid-cols-3 gap-3">
-  <div class="...">
+<div class="m-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+  <div class="evidence">
     <h2 class="text-2xl">Evidence</h2>
     <div *ngFor="let evidence of getEvidence()">
       <span class="inline-block w-52">{{evidence.name}}</span>
@@ -16,14 +16,19 @@
       >No</span>
     </div>
   </div>
-  <div class="...">
+  <div class="behavior md:col-span-2">
     <h2 class="text-2xl">Behavior</h2>
   </div>
-  <div class="col-span-2 md:col-span-1">
+  <div class="ghost-result md:col-span-3">
     <ng-template [ngIf]="getPossibleGhosts().length">
       <h2 class="text-2xl">Your Ghost is:</h2>
       <ul>
-        <li *ngFor="let ghost of getPossibleGhosts()">{{ghost.name}}</li>
+        <li *ngFor="let ghost of getPossibleGhosts()">
+          {{ghost.name}}
+          <span *ngIf="getRemainingEvidence(ghost.evidence).length">
+            (<span *ngFor="let remainingEvidence of getRemainingEvidence(ghost.evidence)">{{remainingEvidence}}</span>)
+          </span>
+        </li>
       </ul>
     </ng-template>
     <ng-template [ngIf]="!getPossibleGhosts().length">
