@@ -1,10 +1,13 @@
-<h1 class="text-3xl text-center">Phasmophobia Ghost Guesser</h1>
-<div class="m-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+<h1 class="text-2xl text-center">Phasmophobia Ghost Guesser</h1>
+<div class="m-3 flex flex-wrap">
 
-  <div class="m-2 evidence">
-    <h2 class="text-2xl my-4">Evidence</h2>
+  <div class="m-2 evidence flex-1">
+    <h2 class="text-xl my-4">Evidence</h2>
     <div *ngFor="let evidence of getEvidence()" class="my-2">
-      <span class="inline-block w-52">{{evidence.name}}</span>
+      <span class="inline-block w-52">
+        <i class="m-1" [ngClass]="evidence.iconClass" [title]="evidence.name"></i>
+        {{evidence.name}}
+      </span>
       <span class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-white w-20 text-center cursor-pointer mr-2"
             [class.bg-gray-500]="isEvidenceUndefined(evidence.id) || isEvidenceAbsent(evidence.id)"
             [class.bg-green-500]="isEvidencePresent(evidence.id)"
@@ -18,8 +21,35 @@
     </div>
   </div>
 
-  <div class="m-2 behavior md:col-span-2">
-    <h2 class="text-2xl my-4">Behavior</h2>
+  <div class="m-2 ghost-result flex-1">
+    <ng-template [ngIf]="getPossibleGhosts().length">
+      <h2 class="text-xl">Your Ghost is:</h2>
+      <ul>
+        <li *ngFor="let ghost of getPossibleGhosts()">
+          {{ghost.name}}
+          <span *ngIf="getRemainingEvidence(ghost.evidence).length">
+            (
+            <span *ngFor="let remainingEvidence of getRemainingEvidence(ghost.evidence)">
+              <i class="m-1" [ngClass]="remainingEvidence.iconClass" [title]="remainingEvidence.name"></i>
+            </span>
+            )
+          </span>
+        </li>
+      </ul>
+    </ng-template>
+    <ng-template [ngIf]="!getPossibleGhosts().length">
+      <h2 class="text-xl">No Possible Ghost</h2>
+      <div>Please check your evidence again</div>
+      <ul>
+        <li>Poltergeist can give fake EMF5 spikes when throwing multiple objects</li>
+        <li>Ghost events can also trigger a fake EMF5 spike</li>
+        <li>Are you sure it's a Ghost orb?</li>
+      </ul>
+    </ng-template>
+  </div>
+
+  <div class="m-2 behavior flex-initial">
+    <h2 class="text-xl my-4">Behavior</h2>
     <div class="grid grid-cols-2 gap-3">
 
       <div class="behavior-giveaway">
@@ -31,7 +61,7 @@
                 (click)="toggleSureCandidate(behavior.id)"
             >Yes</span>
           </span>
-          <span class="flex-initial">{{behavior.value}}</span>
+          <span class="flex-initial text-sm">{{behavior.value}}</span>
         </div>
       </div>
 
@@ -44,33 +74,11 @@
                   (click)="toggleCommonBehavior(behaviorIndex)"
             >Yes</span>
           </span>
-          <span class="flex-initial">{{commonBehavior.value}}</span>
+          <span class="flex-initial text-sm">{{commonBehavior.value}}</span>
         </div>
       </div>
 
     </div>
   </div>
 
-  <div class="m-2 ghost-result md:col-span-3">
-    <ng-template [ngIf]="getPossibleGhosts().length">
-      <h2 class="text-2xl">Your Ghost is:</h2>
-      <ul>
-        <li *ngFor="let ghost of getPossibleGhosts()">
-          {{ghost.name}}
-          <span *ngIf="getRemainingEvidence(ghost.evidence).length">
-            (<span *ngFor="let remainingEvidence of getRemainingEvidence(ghost.evidence)">{{remainingEvidence}}</span>)
-          </span>
-        </li>
-      </ul>
-    </ng-template>
-    <ng-template [ngIf]="!getPossibleGhosts().length">
-      <h2 class="text-2xl">No Possible Ghost</h2>
-      <div>Please check your evidence again</div>
-      <ul>
-        <li>Poltergeist can give fake EMF5 spikes when throwing multiple objects</li>
-        <li>Ghost events can also trigger a fake EMF5 spike</li>
-        <li>Are you sure it's a Ghost orb?</li>
-      </ul>
-    </ng-template>
-  </div>
 </div>

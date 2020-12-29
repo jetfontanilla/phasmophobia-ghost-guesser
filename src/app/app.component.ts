@@ -114,10 +114,10 @@ export class AppComponent {
     });
   }
 
-  getRemainingEvidence(evidences: Evidence[]): string[] {
+  getRemainingEvidence(evidences: Evidence[]): EvidenceEntity[] {
     const [evidencePresent, evidenceAbsent] = this.getCurrentEvidence();
     return map(difference(evidences, [...evidencePresent, ...evidenceAbsent]), (evidenceId) => {
-      return EVIDENCE[evidenceId].name;
+      return EVIDENCE[evidenceId];
     });
   }
 

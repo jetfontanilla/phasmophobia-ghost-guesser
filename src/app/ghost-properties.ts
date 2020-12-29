@@ -26,6 +26,7 @@ export interface EvidenceEntity {
   id: number;
   name: string;
   noEvidence: boolean;
+  iconClass: string;
 }
 
 export interface GhostEntity {
@@ -60,12 +61,12 @@ export const GHOST: GhostEntity[] = [
 ];
 
 export const EVIDENCE: EvidenceEntity[] = [
-  {id: Evidence.Freezing, name: 'Freezing Temperatures', noEvidence: true},
-  {id: Evidence.Emf, name: 'EMF Level 5', noEvidence: true},
-  {id: Evidence.GhostOrbs, name: 'Ghost Orbs', noEvidence: false},
-  {id: Evidence.SpiritBox, name: 'Spirit Box', noEvidence: false},
-  {id: Evidence.GhostWriting, name: 'Ghost Writing', noEvidence: false},
-  {id: Evidence.Fingerprints, name: 'Fingerprints', noEvidence: false}
+  {id: Evidence.Freezing, name: 'Freezing Temperatures', noEvidence: true, iconClass: 'fas fa-snowflake'},
+  {id: Evidence.Emf, name: 'EMF Level 5', noEvidence: true, iconClass: 'fas fa-bolt'},
+  {id: Evidence.GhostOrbs, name: 'Ghost Orbs', noEvidence: false, iconClass: 'fas fa-camera'},
+  {id: Evidence.SpiritBox, name: 'Spirit Box', noEvidence: false, iconClass: 'fas fa-calendar-week'},
+  {id: Evidence.GhostWriting, name: 'Ghost Writing', noEvidence: false, iconClass: 'fab fa-leanpub'},
+  {id: Evidence.Fingerprints, name: 'Fingerprints', noEvidence: false, iconClass: 'fas fa-hand-paper'}
 ];
 
 export const GHOST_BEHAVIOR_GIVEAWAY: BehaviorEntity[] = [
