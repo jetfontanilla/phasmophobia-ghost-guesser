@@ -114,13 +114,10 @@ export class AppComponent {
   getPossibleGhosts(): GhostEntity[] {
     const [evidencePresent, evidenceAbsent] = this.getCurrentEvidence();
 
-    if (!isUndefined(this.sureCandidate)) {
-      return [GHOST[this.sureCandidate]];
-    }
-
     return filter(GHOST, (ghost) => {
       return difference(evidencePresent, ghost.evidence).length === 0
-        && difference(evidenceAbsent, ghost.evidence).length === evidenceAbsent.length;
+        && difference(evidenceAbsent, ghost.evidence).length === evidenceAbsent.length
+        && (isUndefined(this.sureCandidate) || ghost.id === this.sureCandidate);
     });
   }
 
