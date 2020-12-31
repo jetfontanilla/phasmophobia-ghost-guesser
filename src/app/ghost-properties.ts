@@ -109,6 +109,6 @@ export const GHOST_BEHAVIOR_LIKELY: BehaviorCommonEntity[] = [
   },
   {
     value: 'Ghost seems to drain more sanity when manifesting more than the usual',
-    ghostIds: [Ghost.Yurei, Ghost.Phantom]
+    ghostIds: [Ghost.Yurei, Ghost.Phantom, Ghost.Jinn]
   }
 ];
