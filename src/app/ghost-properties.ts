@@ -60,8 +60,8 @@ export const GHOST: GhostEntity[] = [
   {id: Ghost.Revenant, name: 'Revenant', evidence: [Evidence.Emf, Evidence.Fingerprints, Evidence.GhostWriting]},
   {id: Ghost.Poltergeist, name: 'Poltergeist', evidence: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostOrbs]},
   {id: Ghost.Spirit, name: 'Spirit', evidence: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostWriting]},
-  {id: Ghost.Yokai, name: 'Yokai', evidence: [Evidence.GhostOrbs, Evidence.SpiritBox, Evidence.GhostWriting]},,
-  {id: Ghost.Hantu, name: 'Hantu', evidence: [Evidence.Fingerprints, Evidence.GhostOrbs, Evidence.GhostWriting]},
+  {id: Ghost.Yokai, name: 'Yokai', evidence: [Evidence.GhostOrbs, Evidence.SpiritBox, Evidence.GhostWriting]},
+  {id: Ghost.Hantu, name: 'Hantu', evidence: [Evidence.Fingerprints, Evidence.GhostOrbs, Evidence.GhostWriting]}
 ];
 
 export const EVIDENCE: EvidenceEntity[] = [
