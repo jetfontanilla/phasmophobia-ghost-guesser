@@ -10,7 +10,9 @@ export enum Ghost {
   Oni,
   Revenant,
   Poltergeist,
-  Spirit
+  Spirit,
+  Yokai,
+  Hantu
 }
 
 export enum Evidence {
@@ -58,6 +60,8 @@ export const GHOST: GhostEntity[] = [
   {id: Ghost.Revenant, name: 'Revenant', evidence: [Evidence.Emf, Evidence.Fingerprints, Evidence.GhostWriting]},
   {id: Ghost.Poltergeist, name: 'Poltergeist', evidence: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostOrbs]},
   {id: Ghost.Spirit, name: 'Spirit', evidence: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostWriting]},
+  {id: Ghost.Yokai, name: 'Yokai', evidence: [Evidence.GhostOrbs, Evidence.SpiritBox, Evidence.GhostWriting]},,
+  {id: Ghost.Hantu, name: 'Hantu', evidence: [Evidence.Fingerprints, Evidence.GhostOrbs, Evidence.GhostWriting]},
 ];
 
 export const EVIDENCE: EvidenceEntity[] = [
@@ -73,13 +77,15 @@ export const GHOST_BEHAVIOR_GIVEAWAY: BehaviorEntity[] = [
   {id: Ghost.Phantom, value: 'Disappears after taking a Photo. Ghost Photo in Journal is invisible'},
   {id: Ghost.Banshee, value: 'Hunts at > 65% average sanity, only targets one person during hunts'},
   {id: Ghost.Mare, value: 'Hunts at <= 60% average sanity when lights are off in its room. Can only hunt at <= 40% average sanity when lights are on it its room'},
-  {id: Ghost.Demon, value: 'Hunts at <= 65% average sanity'},
+  {id: Ghost.Demon, value: 'Hunts at <= 75% average sanity and not triggered by noise'},
   {id: Ghost.Wraith, value: 'Does not leave UV footprints after stepping on salt'},
   {id: Ghost.Jinn, value: 'When break is turned on, during hunts will move at 2x speed, but will slow down within 4 meters of a player'},
   {id: Ghost.Shade, value: 'Unable to hunt when there is more than 1 person in its room'},
   {id: Ghost.Revenant, value: 'Super fast ghost, moves at 2x speed during hunts'},
   {id: Ghost.Poltergeist, value: 'Can throw more than one item at once. drains sanity if you see items being thrown'},
   {id: Ghost.Spirit, value: 'After using Smudge Sticks, unable to hunt for 180 seconds instead of the usual 90 seconds'},
+  {id: Ghost.Yokai, value: 'Triggers hunts above 60% and triggered by noise'},
+  {id: Ghost.Hantu, value: 'Moves much faster when breaker is turned off, normal speed when breaker is on'}
 ];
 
 export const GHOST_BEHAVIOR_LIKELY: BehaviorCommonEntity[] = [
