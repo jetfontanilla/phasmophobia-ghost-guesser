@@ -12,7 +12,9 @@ export enum Ghost {
   Poltergeist,
   Spirit,
   Yokai,
-  Hantu
+  Hantu,
+  Goryo,
+  Myling
 }
 
 export enum Evidence {
@@ -21,7 +23,8 @@ export enum Evidence {
   GhostOrbs,
   SpiritBox,
   GhostWriting,
-  Fingerprints
+  Fingerprints,
+  DOTSProjector
 }
 
 export interface EvidenceEntity {
@@ -48,20 +51,22 @@ export interface BehaviorCommonEntity {
 }
 
 export const GHOST: GhostEntity[] = [
-  {id: Ghost.Phantom, name: 'Phantom', evidence: [Evidence.Emf, Evidence.Freezing, Evidence.GhostOrbs]},
-  {id: Ghost.Banshee, name: 'Banshee', evidence: [Evidence.Emf, Evidence.Freezing, Evidence.Fingerprints]},
-  {id: Ghost.Mare, name: 'Mare', evidence: [Evidence.Freezing, Evidence.GhostOrbs, Evidence.SpiritBox]},
-  {id: Ghost.Yurei, name: 'Yurei', evidence: [Evidence.Freezing, Evidence.GhostOrbs, Evidence.GhostWriting]},
-  {id: Ghost.Demon, name: 'Demon', evidence: [Evidence.Freezing, Evidence.SpiritBox, Evidence.GhostWriting]},
-  {id: Ghost.Wraith, name: 'Wraith', evidence: [Evidence.Freezing, Evidence.SpiritBox, Evidence.Fingerprints]},
-  {id: Ghost.Jinn, name: 'Jinn', evidence: [Evidence.Emf, Evidence.SpiritBox, Evidence.GhostOrbs]},
-  {id: Ghost.Shade, name: 'Shade', evidence: [Evidence.Emf, Evidence.GhostOrbs, Evidence.GhostWriting]},
-  {id: Ghost.Oni, name: 'Oni', evidence: [Evidence.Emf, Evidence.SpiritBox, Evidence.GhostWriting]},
-  {id: Ghost.Revenant, name: 'Revenant', evidence: [Evidence.Emf, Evidence.Fingerprints, Evidence.GhostWriting]},
-  {id: Ghost.Poltergeist, name: 'Poltergeist', evidence: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostOrbs]},
-  {id: Ghost.Spirit, name: 'Spirit', evidence: [Evidence.Fingerprints, Evidence.SpiritBox, Evidence.GhostWriting]},
-  {id: Ghost.Yokai, name: 'Yokai', evidence: [Evidence.GhostOrbs, Evidence.SpiritBox, Evidence.GhostWriting]},
-  {id: Ghost.Hantu, name: 'Hantu', evidence: [Evidence.Fingerprints, Evidence.GhostOrbs, Evidence.GhostWriting]}
+  {id: Ghost.Phantom, name: 'Phantom', evidence: [Evidence.SpiritBox, Evidence.Fingerprints, Evidence.DOTSProjector]},
+  {id: Ghost.Banshee, name: 'Banshee', evidence: [Evidence.GhostOrbs, Evidence.Fingerprints, Evidence.DOTSProjector]},
+  {id: Ghost.Mare, name: 'Mare', evidence: [Evidence.GhostOrbs, Evidence.GhostWriting, Evidence.SpiritBox]},
+  {id: Ghost.Yurei, name: 'Yurei', evidence: [Evidence.GhostOrbs, Evidence.Freezing, Evidence.DOTSProjector]},
+  {id: Ghost.Demon, name: 'Demon', evidence: [Evidence.Freezing, Evidence.GhostWriting, Evidence.Fingerprints]},
+  {id: Ghost.Wraith, name: 'Wraith', evidence: [Evidence.Emf, Evidence.SpiritBox, Evidence.DOTSProjector]},
+  {id: Ghost.Jinn, name: 'Jinn', evidence: [Evidence.Emf, Evidence.Freezing, Evidence.Fingerprints]},
+  {id: Ghost.Shade, name: 'Shade', evidence: [Evidence.Emf, Evidence.GhostWriting, Evidence.Freezing]},
+  {id: Ghost.Oni, name: 'Oni', evidence: [Evidence.Emf, Evidence.Freezing, Evidence.DOTSProjector]},
+  {id: Ghost.Revenant, name: 'Revenant', evidence: [Evidence.GhostOrbs, Evidence.Freezing, Evidence.GhostWriting]},
+  {id: Ghost.Poltergeist, name: 'Poltergeist', evidence: [Evidence.SpiritBox, Evidence.Fingerprints, Evidence.GhostWriting]},
+  {id: Ghost.Spirit, name: 'Spirit', evidence: [Evidence.Emf, Evidence.SpiritBox, Evidence.GhostWriting]},
+  {id: Ghost.Yokai, name: 'Yokai', evidence: [Evidence.GhostOrbs, Evidence.SpiritBox, Evidence.DOTSProjector]},
+  {id: Ghost.Hantu, name: 'Hantu', evidence: [Evidence.GhostOrbs, Evidence.Freezing, Evidence.Fingerprints]},
+  {id: Ghost.Goryo, name: 'Goryo', evidence: [Evidence.Emf, Evidence.Fingerprints, Evidence.DOTSProjector]},
+  {id: Ghost.Myling, name: 'Myling', evidence: [Evidence.Emf, Evidence.Fingerprints, Evidence.GhostWriting]}
 ];
 
 export const EVIDENCE: EvidenceEntity[] = [
@@ -70,7 +75,8 @@ export const EVIDENCE: EvidenceEntity[] = [
   {id: Evidence.GhostOrbs, name: 'Ghost Orbs', noEvidence: false, iconClass: 'fas fa-camera'},
   {id: Evidence.SpiritBox, name: 'Spirit Box', noEvidence: false, iconClass: 'fas fa-calendar-week'},
   {id: Evidence.GhostWriting, name: 'Ghost Writing', noEvidence: false, iconClass: 'fab fa-leanpub'},
-  {id: Evidence.Fingerprints, name: 'Fingerprints', noEvidence: false, iconClass: 'fas fa-hand-paper'}
+  {id: Evidence.Fingerprints, name: 'Fingerprints', noEvidence: false, iconClass: 'fas fa-hand-paper'},
+  {id: Evidence.DOTSProjector, name: 'D.O.T.S. Projector', noEvidence: false, iconClass: 'fas fa-podcast'}
 ];
 
 export const GHOST_BEHAVIOR_GIVEAWAY: BehaviorEntity[] = [
