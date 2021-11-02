@@ -14,7 +14,11 @@ export enum Ghost {
   Yokai,
   Hantu,
   Goryo,
-  Myling
+  Myling,
+  Onryo,
+  The_Twins,
+  Obake,
+  Raiju
 }
 
 export enum Evidence {
@@ -66,7 +70,11 @@ export const GHOST: GhostEntity[] = [
   {id: Ghost.Yokai, name: 'Yokai', evidence: [Evidence.GhostOrbs, Evidence.SpiritBox, Evidence.DOTSProjector]},
   {id: Ghost.Hantu, name: 'Hantu', evidence: [Evidence.GhostOrbs, Evidence.Freezing, Evidence.Fingerprints]},
   {id: Ghost.Goryo, name: 'Goryo', evidence: [Evidence.Emf, Evidence.Fingerprints, Evidence.DOTSProjector]},
-  {id: Ghost.Myling, name: 'Myling', evidence: [Evidence.Emf, Evidence.Fingerprints, Evidence.GhostWriting]}
+  {id: Ghost.Myling, name: 'Myling', evidence: [Evidence.Emf, Evidence.Fingerprints, Evidence.GhostWriting]},
+  {id: Ghost.Onryo, name: 'Onryo', evidence: [Evidence.GhostOrbs, Evidence.Freezing, Evidence.SpiritBox]},
+  {id: Ghost.The_Twins, name: 'The Twins', evidence: [Evidence.Emf, Evidence.Freezing, Evidence.SpiritBox]},
+  {id: Ghost.Obake, name: 'Obake', evidence: [Evidence.Emf, Evidence.GhostOrbs, Evidence.Fingerprints]},
+  {id: Ghost.Raiju, name: 'Raiju', evidence: [Evidence.DOTSProjector, Evidence.Emf, Evidence.GhostOrbs]}
 ];
 
 export const EVIDENCE: EvidenceEntity[] = [
