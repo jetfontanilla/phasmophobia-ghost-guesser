@@ -47,7 +47,7 @@
     <ng-template [ngIf]="getPossibleGhosts().length">
       <h2 class="text-xl my-4 inline-block" *ngIf="getPossibleGhosts().length > 1">Possible Ghosts:</h2>
       <h2 class="text-xl my-4 inline-block" *ngIf="getPossibleGhosts().length === 1">Your Ghost is a:</h2>
-      <div class="grid grid-cols-2 grid-rows-6 grid-flow-col gap-2">
+      <div class="grid grid-cols-3 grid-rows-6 grid-flow-col gap-2">
         <span *ngFor="let ghost of getPossibleGhosts()">
         {{ghost.name}}
           <span *ngIf="getRemainingEvidence(ghost.evidence).length">
